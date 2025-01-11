@@ -2469,8 +2469,15 @@ class HCI_LE_Meta_Connection_Update_Complete(Packet):
 
 class HCI_LE_Meta_Advertising_Report(Packet):
     name = "Advertising Report"
-    fields_desc = [ByteEnumField("type", 0, {0: "conn_und", 4: "scan_rsp"}),
-                   ByteEnumField("atype", 0, {0: "public", 1: "random"}),
+    fields_desc = [ByteEnumField("type", 0, {0: "adv_ind",
+                                             1: "adv_direct_ind",
+                                             2: "adv_scan_ind",
+                                             3: "adv_nonconn_ind",
+                                             4: "scan_rsp"}),
+                   ByteEnumField("atype", 0, {0: "public",
+                                              1: "random",
+                                              2: "public_identity",
+                                              3: "random_static"}),
                    LEMACField("addr", None),
                    FieldLenField("len", None, length_of="data", fmt="B"),
                    PacketListField("data", [], EIR_Hdr,
