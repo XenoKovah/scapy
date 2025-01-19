@@ -63,7 +63,6 @@ from scapy.data import MTU
 from scapy.consts import WINDOWS
 from scapy.error import warning
 
-
 ############
 #  Consts  #
 ############
@@ -2467,6 +2466,17 @@ class HCI_LE_Meta_Connection_Update_Complete(Packet):
                    LEShortField("timeout", 42), ]
 
 
+class HCI_LE_Meta_LE_Read_Remote_Features_Complete(Packet):
+    name = "LE Read Remote Features Complete"
+    fields_desc = [ByteEnumField("status", 0, {0: "success"}),
+                   LEShortField("handle", 0),
+                   StrFixedLenField("le_features", b"\x00" * 8, 8) ]
+                    # NOTE: this would be better as a bluetooth4LE.BTLEFeatureField
+                    # but it's not clear to me if its permissible to import
+                    # from bluetooth4LE in bluetooth. And if not that would need to
+                    # be moved into here?
+
+
 class HCI_LE_Meta_Advertising_Report(Packet):
     name = "Advertising Report"
     fields_desc = [ByteEnumField("type", 0, {0: "adv_ind",
@@ -2675,6 +2685,7 @@ bind_layers(HCI_Event_Command_Complete, HCI_Cmd_Complete_LE_Read_White_List_Size
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Connection_Complete, event=1)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Advertising_Reports, event=2)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Connection_Update_Complete, event=3)
+bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_LE_Read_Remote_Features_Complete, event=4)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Long_Term_Key_Request, event=5)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Extended_Advertising_Reports, event=0x0d)
 
