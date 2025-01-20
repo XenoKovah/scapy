@@ -2466,6 +2466,25 @@ class HCI_LE_Meta_Connection_Update_Complete(Packet):
                    LEShortField("timeout", 42), ]
 
 
+class HCI_LE_Meta_Enhanced_Connection_Update_Complete_v1(Packet):
+    name = "Enhanced Connection Update Complete"
+    fields_desc = [ByteEnumField("status", 0, {0: "success"}),
+                   LEShortField("handle", 0),
+                   ByteEnumField("role", 0, {0: "Central",
+                                             1: "Peripheral"}),
+                   ByteEnumField("patype", 0, {0: "public",
+                                               1: "random",
+                                               2: "public_identity",
+                                               3: "random_static"}),
+                   LEMACField("paddr", None),
+                   LEMACField("lrpaddr", None),
+                   LEMACField("prpaddr", None),
+                   LEShortField("interval", 0),
+                   LEShortField("latency", 0),
+                   LEShortField("timeout", 0),
+                   XByteField("clock_accuracy", 0)]
+
+
 class HCI_LE_Meta_LE_Read_Remote_Features_Complete(Packet):
     name = "LE Read Remote Features Complete"
     fields_desc = [ByteEnumField("status", 0, {0: "success"}),
@@ -2687,6 +2706,7 @@ bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Advertising_Reports, event=2)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Connection_Update_Complete, event=3)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_LE_Read_Remote_Features_Complete, event=4)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Long_Term_Key_Request, event=5)
+bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Enhanced_Connection_Update_Complete_v1, event=0x0a)
 bind_layers(HCI_Event_LE_Meta, HCI_LE_Meta_Extended_Advertising_Reports, event=0x0d)
 
 bind_layers(EIR_Hdr, EIR_Flags, type=0x01)
