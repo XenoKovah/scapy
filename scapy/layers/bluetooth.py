@@ -2186,6 +2186,17 @@ class HCI_Event_Connection_Complete(Packet):
                                   1: "link level encryption enabled", }), ]
 
 
+class HCI_Event_Connection_Request(Packet):
+    """
+    7.7.4 Connection Request event
+    """
+    name = "HCI_Connection_Request"
+    fields_desc = [LEMACField("bd_addr", None),
+                   XLE3BytesField("device_class", 0),
+                   ByteEnumField("link_type", 0, {0: "SCO connection",
+                                                  1: "ACL connection",
+                                                  2: "eSCO connection", }), ]
+
 class HCI_Event_Disconnection_Complete(Packet):
     """
     7.7.5 Disconnection Complete event
@@ -2679,6 +2690,7 @@ bind_layers(HCI_Command_Hdr, HCI_Cmd_LE_Long_Term_Key_Request_Negative_Reply, og
 bind_layers(HCI_Event_Hdr, HCI_Event_Inquiry_Complete, code=0x01)
 bind_layers(HCI_Event_Hdr, HCI_Event_Inquiry_Result, code=0x02)
 bind_layers(HCI_Event_Hdr, HCI_Event_Connection_Complete, code=0x03)
+bind_layers(HCI_Event_Hdr, HCI_Event_Connection_Request, code=0x04)
 bind_layers(HCI_Event_Hdr, HCI_Event_Disconnection_Complete, code=0x05)
 bind_layers(HCI_Event_Hdr, HCI_Event_Remote_Name_Request_Complete, code=0x07)
 bind_layers(HCI_Event_Hdr, HCI_Event_Encryption_Change, code=0x08)
