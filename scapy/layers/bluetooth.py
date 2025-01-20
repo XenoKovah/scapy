@@ -2499,7 +2499,7 @@ class HCI_LE_Meta_LE_Read_Remote_Features_Complete(Packet):
     name = "LE Read Remote Features Complete"
     fields_desc = [ByteEnumField("status", 0, {0: "success"}),
                    LEShortField("handle", 0),
-                   StrFixedLenField("le_features", b"\x00" * 8, 8) ]
+                   XLELongField('le_features', 0) ]
                     # NOTE: this would be better as a bluetooth4LE.BTLEFeatureField
                     # but it's not clear to me if its permissible to import
                     # from bluetooth4LE in bluetooth. And if not that would need to
