@@ -2162,18 +2162,12 @@ class HCI_Event_Inquiry_Result(Packet):
     """
     name = "HCI_Inquiry_Result"
     fields_desc = [
-        ByteField("num_response", 0x00),
-        FieldListField("addr", None, LEMACField("addr", None),
-                       count_from=lambda p: p.num_response),
-        FieldListField("page_scan_repetition_mode", None,
-                       ByteField("page_scan_repetition_mode", 0),
-                       count_from=lambda p: p.num_response),
-        FieldListField("reserved", None, LEShortField("reserved", 0),
-                       count_from=lambda p: p.num_response),
-        FieldListField("device_class", None, XLE3BytesField("device_class", 0),
-                       count_from=lambda p: p.num_response),
-        FieldListField("clock_offset", None, LEShortField("clock_offset", 0),
-                       count_from=lambda p: p.num_response)
+        ByteField("num_response", 1),
+        LEMACField("bd_addr", None),
+        ByteField("page_scan_repetition_mode", 0),
+        ByteField("reserved", 0),
+        XLE3BytesField("device_class", 0),
+        LEShortField("clock_offset", 0)
     ]
 
 
@@ -2321,19 +2315,13 @@ class HCI_Event_Inquiry_Result_With_Rssi(Packet):
     """
     name = "HCI_Inquiry_Result_with_RSSI"
     fields_desc = [
-        ByteField("num_response", 0x00),
-        FieldListField("bd_addr", None, LEMACField,
-                       count_from=lambda p: p.num_response),
-        FieldListField("page_scan_repetition_mode", None, ByteField,
-                       count_from=lambda p: p.num_response),
-        FieldListField("reserved", None, LEShortField,
-                       count_from=lambda p: p.num_response),
-        FieldListField("device_class", None, XLE3BytesField,
-                       count_from=lambda p: p.num_response),
-        FieldListField("clock_offset", None, LEShortField,
-                       count_from=lambda p: p.num_response),
-        FieldListField("rssi", None, SignedByteField,
-                       count_from=lambda p: p.num_response)
+        ByteField("num_response", 1),
+        LEMACField("bd_addr", None),
+        ByteField("page_scan_repetition_mode", 0),
+        ByteField("reserved", 0),
+        XLE3BytesField("device_class", 0),
+        LEShortField("clock_offset", 0),
+        SignedByteField("rssi", 0)
     ]
 
 
