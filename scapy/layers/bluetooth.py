@@ -1221,7 +1221,9 @@ class EIR_Device_ID(EIR_Element):
 class EIR_ServiceSolicitation16BitUUID(EIR_Element):
     name = "EIR Service Solicitation - 16-bit UUID"
     fields_desc = [
-        XLEShortField("svc_uuid", None)
+        # Per the CSS this is a "List of 16 bit Service Solicitation UUIDs" (even though we only have samples with a single UUID16)
+        FieldListField("svc_uuids", None, XLEShortField("uuid", 0),
+                       length_from=EIR_Element.length_from)
     ]
 
     def extract_padding(self, s):
