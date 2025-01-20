@@ -26,7 +26,7 @@ assert a[Raw].load == b"toto"
 
 = Longer BTLE_ADV
 
-a = BTLE()/BTLE_ADV()/BTLE_CONNECT_REQ()/(b"X"*200)
+a = BTLE()/BTLE_ADV()/BTLE_CONNECT_IND()/(b"X"*200)
 assert raw(a) == b'\xd6\xbe\x89\x8e\x05\xea\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXI\xfc\xcf'
 pkt = BTLE(raw(a))
 assert pkt.Length == 0xea
@@ -67,7 +67,7 @@ assert test[LL_TERMINATE_IND].code == 0x16
 = LL_ENC_REQ
 
 test = BTLE(access_addr=1) / BTLE_DATA() / BTLE_CTRL() / \
-        LL_ENC_REQ(rand=0x1112131415161718, ediv=0x4321, 
+        LL_ENC_REQ(rand=0x1112131415161718, ediv=0x4321,
                    skdm=0x1817161514131211, ivm=0x87654321)
 test = BTLE(raw(test))
 assert test[LL_ENC_REQ].rand == 0x1112131415161718
@@ -487,14 +487,14 @@ assert test3e[ATT_Hdr].opcode == 0x16
 
 = BTLE layers
 # a crazy packet with all classes in it!
-pkt = BTLE()/BTLE_ADV()/BTLE_ADV_DIRECT_IND()/BTLE_ADV_IND()/BTLE_ADV_NONCONN_IND()/BTLE_ADV_SCAN_IND()/BTLE_CONNECT_REQ()/BTLE_DATA()/BTLE_PPI()/BTLE_SCAN_REQ()/BTLE_SCAN_RSP()
+pkt = BTLE()/BTLE_ADV()/BTLE_ADV_DIRECT_IND()/BTLE_ADV_IND()/BTLE_ADV_NONCONN_IND()/BTLE_ADV_SCAN_IND()/BTLE_CONNECT_IND()/BTLE_DATA()/BTLE_PPI()/BTLE_SCAN_REQ()/BTLE_SCAN_RSP()
 assert BTLE in pkt.layers()
 assert BTLE_ADV in pkt.layers()
 assert BTLE_ADV_DIRECT_IND in pkt.layers()
 assert BTLE_ADV_IND in pkt.layers()
 assert BTLE_ADV_NONCONN_IND in pkt.layers()
 assert BTLE_ADV_SCAN_IND in pkt.layers()
-assert BTLE_CONNECT_REQ in pkt.layers()
+assert BTLE_CONNECT_IND in pkt.layers()
 assert BTLE_DATA in pkt.layers()
 assert BTLE_PPI in pkt.layers()
 assert BTLE_SCAN_REQ in pkt.layers()

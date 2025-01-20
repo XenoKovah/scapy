@@ -283,7 +283,7 @@ class BTLE_ADV(Packet):
                                         2: "ADV_NONCONN_IND",
                                         3: "SCAN_REQ",
                                         4: "SCAN_RSP",
-                                        5: "CONNECT_REQ",
+                                        5: "CONNECT_IND",
                                         6: "ADV_SCAN_IND"}),
         XByteField("Length", None),
     ]
@@ -364,7 +364,7 @@ class BTLE_SCAN_RSP(Packet):
         return BTLE_SCAN_REQ in other and self.AdvA == other.AdvA
 
 
-class BTLE_CONNECT_REQ(Packet):
+class BTLE_CONNECT_IND(Packet):
     name = "BTLE connect request"
     fields_desc = [
         BDAddrField("InitA", None),
@@ -847,7 +847,7 @@ bind_layers(BTLE_ADV, BTLE_ADV_DIRECT_IND, PDU_type=1)
 bind_layers(BTLE_ADV, BTLE_ADV_NONCONN_IND, PDU_type=2)
 bind_layers(BTLE_ADV, BTLE_SCAN_REQ, PDU_type=3)
 bind_layers(BTLE_ADV, BTLE_SCAN_RSP, PDU_type=4)
-bind_layers(BTLE_ADV, BTLE_CONNECT_REQ, PDU_type=5)
+bind_layers(BTLE_ADV, BTLE_CONNECT_IND, PDU_type=5)
 bind_layers(BTLE_ADV, BTLE_ADV_SCAN_IND, PDU_type=6)
 
 # Data channel (0-36) PDUs
