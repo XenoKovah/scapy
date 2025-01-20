@@ -2234,6 +2234,17 @@ class HCI_Event_Read_Remote_Supported_Features_Complete(Packet):
     ]
 
 
+class HCI_Event_Remote_Host_Supported_Features_Notification(Packet):
+    """
+    (Spec 5.4) 7.7.50 Remote Host Supported Features Notification event
+    """
+    name = "HCI_Remote_Host_Supported_Features_Notification"
+    fields_desc = [
+        LEMACField('bd_addr', None),
+        FlagsField('lmp_features', 0, -64, _bluetooth_features)
+    ]
+
+
 class HCI_Event_Read_Remote_Version_Information_Complete(Packet):
     """
     7.7.12 Read Remote Version Information Complete event
@@ -2693,6 +2704,7 @@ bind_layers(HCI_Event_Hdr, HCI_Event_Inquiry_Result_With_Rssi, code=0x22)
 bind_layers(HCI_Event_Hdr, HCI_Event_Read_Remote_Extended_Features_Complete, code=0x23)
 bind_layers(HCI_Event_Hdr, HCI_Event_Extended_Inquiry_Result, code=0x2f)
 bind_layers(HCI_Event_Hdr, HCI_Event_IO_Capability_Response, code=0x32)
+bind_layers(HCI_Event_Hdr, HCI_Event_Remote_Host_Supported_Features_Notification, code=0x3d)
 bind_layers(HCI_Event_Hdr, HCI_Event_LE_Meta, code=0x3e)
 
 bind_layers(HCI_Event_Command_Complete, HCI_Cmd_Complete_Read_Local_Name, opcode=0x0c14)  # noqa: E501
