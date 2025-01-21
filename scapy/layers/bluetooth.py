@@ -1235,7 +1235,10 @@ class EIR_ServiceSolicitation16BitUUID(EIR_Element):
 class EIR_ServiceSolicitation128BitUUID(EIR_Element):
     name = "EIR Service Solicitation - 128-bit UUID"
     fields_desc = [
-        UUIDField('svc_uuid', None, uuid_fmt=UUIDField.FORMAT_REV)
+        # Per the CSS this is a "List of 128 bit Service Solicitation UUIDs" (even though we only have samples with a single UUID128)
+        FieldListField("svc_uuids", None,
+                       UUIDField("uuid", None, uuid_fmt=UUIDField.FORMAT_REV),
+                       length_from=EIR_Element.length_from)
     ]
 
     def extract_padding(self, s):
