@@ -1612,6 +1612,19 @@ class EIR_BroadcastName(EIR_Element):
         StrLenField("broadcast_name", "", length_from=EIR_Element.length_from)
     ]
 
+
+class EIR_3DInformation(EIR_Element):
+    name = '3D Information'
+    fields_desc = [
+        BitField("factory_test_mode", 0, 1, tot_size=1),
+        BitField("reserved", 0, 4, tot_size=1),
+        BitField("send_battery_level_on_startup", 0, 1, tot_size=1),
+        BitField("battery_level_reporting", 0, 1, tot_size=1),
+        BitField("association_notification", 0, 1, tot_size=1),
+        ByteField("path_loss_threshold", 0),
+    ]
+
+
 class HCI_Command_Hdr(Packet):
     name = "HCI Command header"
     fields_desc = [XBitField("ogf", 0, 6, tot_size=-2),
@@ -2815,6 +2828,7 @@ bind_layers(EIR_Hdr, EIR_ServiceData32BitUUID, type=0x20)
 bind_layers(EIR_Hdr, EIR_ServiceData128BitUUID, type=0x21)
 bind_layers(EIR_Hdr, EIR_URI, type=0x24)
 bind_layers(EIR_Hdr, EIR_BroadcastName, type=0x30)
+bind_layers(EIR_Hdr, EIR_3DInformation, type=0x3d)
 bind_layers(EIR_Hdr, EIR_Manufacturer_Specific_Data, type=0xff)
 bind_layers(EIR_Hdr, EIR_Raw)
 
