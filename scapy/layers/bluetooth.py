@@ -1035,8 +1035,13 @@ class EIR_CompleteList16BitServiceUUIDs(EIR_Element):
     ]
 
 
-class EIR_IncompleteList16BitServiceUUIDs(EIR_CompleteList16BitServiceUUIDs):
+class EIR_IncompleteList16BitServiceUUIDs(EIR_Element):
     name = "Incomplete list of 16-bit service UUIDs"
+    fields_desc = [
+        # https://www.bluetooth.com/specifications/assigned-numbers/16-bit-uuids-for-members
+        FieldListField("svc_uuids", None, XLEShortField("uuid", 0),
+                       length_from=EIR_Element.length_from)
+    ]
 
 
 class EIR_CompleteList32BitServiceUUIDs(EIR_Element):
@@ -1048,9 +1053,13 @@ class EIR_CompleteList32BitServiceUUIDs(EIR_Element):
     ]
 
 
-class EIR_IncompleteList32BitServiceUUIDs(EIR_CompleteList32BitServiceUUIDs):
+class EIR_IncompleteList32BitServiceUUIDs(EIR_Element):
     name = 'Incomplete list of 32-bit service UUIDs'
-
+    fields_desc = [
+        # https://www.bluetooth.com/specifications/assigned-numbers
+        FieldListField('svc_uuids', None, XLEIntField('uuid', 0),
+                       length_from=EIR_Element.length_from)
+    ]
 
 class EIR_CompleteList128BitServiceUUIDs(EIR_Element):
     name = "Complete list of 128-bit service UUIDs"
@@ -1061,9 +1070,13 @@ class EIR_CompleteList128BitServiceUUIDs(EIR_Element):
     ]
 
 
-class EIR_IncompleteList128BitServiceUUIDs(EIR_CompleteList128BitServiceUUIDs):
+class EIR_IncompleteList128BitServiceUUIDs(EIR_Element):
     name = "Incomplete list of 128-bit service UUIDs"
-
+    fields_desc = [
+        FieldListField("svc_uuids", None,
+                       UUIDField("uuid", None, uuid_fmt=UUIDField.FORMAT_REV),
+                       length_from=EIR_Element.length_from)
+    ]
 
 class EIR_CompleteLocalName(EIR_Element):
     name = "Complete Local Name"
@@ -1072,9 +1085,11 @@ class EIR_CompleteLocalName(EIR_Element):
     ]
 
 
-class EIR_ShortenedLocalName(EIR_CompleteLocalName):
+class EIR_ShortenedLocalName(EIR_Element):
     name = "Shortened Local Name"
-
+    fields_desc = [
+        StrLenField("local_name", "", length_from=EIR_Element.length_from)
+    ]
 
 class EIR_TX_Power_Level(EIR_Element):
     name = "TX Power Level"
