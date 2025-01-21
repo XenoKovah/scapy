@@ -1606,6 +1606,12 @@ class EIR_URI(EIR_Element):
         return EIR_URI.scheme.i2s[self.scheme] + self.uri_hier_part.decode('utf-8')
 
 
+class EIR_BroadcastName(EIR_Element):
+    name = 'Broadcast Name'
+    fields_desc = [
+        StrLenField("broadcast_name", "", length_from=EIR_Element.length_from)
+    ]
+
 class HCI_Command_Hdr(Packet):
     name = "HCI Command header"
     fields_desc = [XBitField("ogf", 0, 6, tot_size=-2),
@@ -2808,6 +2814,7 @@ bind_layers(EIR_Hdr, EIR_LERole, type=0x1c)
 bind_layers(EIR_Hdr, EIR_ServiceData32BitUUID, type=0x20)
 bind_layers(EIR_Hdr, EIR_ServiceData128BitUUID, type=0x21)
 bind_layers(EIR_Hdr, EIR_URI, type=0x24)
+bind_layers(EIR_Hdr, EIR_BroadcastName, type=0x30)
 bind_layers(EIR_Hdr, EIR_Manufacturer_Specific_Data, type=0xff)
 bind_layers(EIR_Hdr, EIR_Raw)
 
