@@ -1308,6 +1308,16 @@ class EIR_LEBluetoothDeviceAddress(EIR_Element):
     ]
 
 
+class EIR_LERole(EIR_Element):
+    name = "LE Role"
+    fields_desc = [
+        ByteEnumField("role", 0, {0: "Only Peripheral Role supported",
+                                  1: "Only Central Role supported",
+                                  2: "Peripheral and Central Role supported, Peripheral Role preferred for connection establishment",
+                                  3: "Peripheral and Central Role supported, Central Role preferred for connection establishment" }),
+    ]
+
+
 class EIR_Appearance(EIR_Element):
     name = "EIR_Appearance"
     fields_desc = [
@@ -2794,6 +2804,7 @@ bind_layers(EIR_Hdr, EIR_RandomTargetAddress, type=0x18)
 bind_layers(EIR_Hdr, EIR_Appearance, type=0x19)
 bind_layers(EIR_Hdr, EIR_AdvertisingInterval, type=0x1a)
 bind_layers(EIR_Hdr, EIR_LEBluetoothDeviceAddress, type=0x1b)
+bind_layers(EIR_Hdr, EIR_LERole, type=0x1c)
 bind_layers(EIR_Hdr, EIR_ServiceData32BitUUID, type=0x20)
 bind_layers(EIR_Hdr, EIR_ServiceData128BitUUID, type=0x21)
 bind_layers(EIR_Hdr, EIR_URI, type=0x24)
