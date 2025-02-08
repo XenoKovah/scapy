@@ -562,36 +562,36 @@ class LL_SLAVE_FEATURE_REQ(Packet):
 class LL_CONNECTION_PARAM_REQ(Packet):
     name = "LL_CONNECTION_PARAM_REQ"
     fields_desc = [
-        XShortField("interval_min", 0x6),
-        XShortField("interval_max", 0x6),
-        XShortField("latency", 0x0),
-        XShortField("timeout", 0x0),
+        XLEShortField("interval_min", 0x6),
+        XLEShortField("interval_max", 0x6),
+        XLEShortField("latency", 0x0),
+        XLEShortField("timeout", 0x0),
         XByteField("preferred_periodicity", 0x0),
-        XShortField("reference_conn_evt_count", 0x0),
-        XShortField("offset0", 0x0),
-        XShortField("offset1", 0x0),
-        XShortField("offset2", 0x0),
-        XShortField("offset3", 0x0),
-        XShortField("offset4", 0x0),
-        XShortField("offset5", 0x0),
+        XLEShortField("reference_conn_evt_count", 0x0),
+        XLEShortField("offset0", 0x0),
+        XLEShortField("offset1", 0x0),
+        XLEShortField("offset2", 0x0),
+        XLEShortField("offset3", 0x0),
+        XLEShortField("offset4", 0x0),
+        XLEShortField("offset5", 0x0),
     ]
 
 
 class LL_CONNECTION_PARAM_RSP(Packet):
     name = "LL_CONNECTION_PARAM_RSP"
     fields_desc = [
-        XShortField("interval_min", 0x6),
-        XShortField("interval_max", 0x6),
-        XShortField("latency", 0x0),
-        XShortField("timeout", 0x0),
+        XLEShortField("interval_min", 0x6),
+        XLEShortField("interval_max", 0x6),
+        XLEShortField("latency", 0x0),
+        XLEShortField("timeout", 0x0),
         XByteField("preferred_periodicity", 0x0),
-        XShortField("reference_conn_evt_count", 0x0),
-        XShortField("offset0", 0x0),
-        XShortField("offset1", 0x0),
-        XShortField("offset2", 0x0),
-        XShortField("offset3", 0x0),
-        XShortField("offset4", 0x0),
-        XShortField("offset5", 0x0),
+        XLEShortField("reference_conn_evt_count", 0x0),
+        XLEShortField("offset0", 0x0),
+        XLEShortField("offset1", 0x0),
+        XLEShortField("offset2", 0x0),
+        XLEShortField("offset3", 0x0),
+        XLEShortField("offset4", 0x0),
+        XLEShortField("offset5", 0x0),
     ]
 
 
@@ -652,7 +652,7 @@ class LL_PHY_UPDATE_IND(Packet):
     fields_desc = [
         BTLEPhysField('tx_phy', 0),
         BTLEPhysField('rx_phy', 0),
-        XShortField("instant", 0x0),
+        XLEShortField("instant", 0x0),
     ]
 
 
