@@ -313,12 +313,12 @@ class L2CAP_CmdHdr(Packet):
                                   9: "L2CAP_ECHO_RSP",
                                   10: "L2CAP_INFORMATION_REQ",
                                   11: "L2CAP_INFORMATION_RSP",
-                                  12: "create_channel_req",
-                                  13: "create_channel_resp",
-                                  14: "move_channel_req",
-                                  15: "move_channel_resp",
-                                  16: "move_channel_confirm_req",
-                                  17: "move_channel_confirm_resp",
+                                  12: "L2CAP_CREATE_CHANNEL_REQ",
+                                  13: "L2CAP_CREATE_CHANNEL_RSP",
+                                  14: "L2CAP_MOVE_CHANNEL_REQ",
+                                  15: "L2CAP_MOVE_CHANNEL_RSP",
+                                  16: "L2CAP_MOVE_CHANNEL_CONFIRMATION_REQ",
+                                  17: "L2CAP_MOVE_CHANNEL_CONFIRMATION_RSP",
                                   18: "L2CAP_CONNECTION_PARAMETER_UPDATE_REQ",
                                   19: "L2CAP_CONNECTION_PARAMETER_UPDATE_RSP",
                                   20: "L2CAP_LE_CREDIT_BASED_CONNECTION_REQ",
@@ -455,7 +455,7 @@ class L2CAP_InfoResp(Packet):
 
 
 class L2CAP_Create_Channel_Request(Packet):
-    name = "L2CAP Create Channel Request"
+    name = "L2CAP_CREATE_CHANNEL_REQ"
     fields_desc = [LEShortEnumField("psm", 0, {1: "SDP",
                                                3: "RFCOMM",
                                                5: "TCS-BIN",
@@ -477,7 +477,7 @@ class L2CAP_Create_Channel_Request(Packet):
 
 
 class L2CAP_Create_Channel_Response(Packet):
-    name = "L2CAP Create Channel Response"
+    name = "L2CAP_CREATE_CHANNEL_RSP"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("scid", 0),
                    LEShortEnumField("result", 0, {
@@ -496,13 +496,13 @@ class L2CAP_Create_Channel_Response(Packet):
 
 
 class L2CAP_Move_Channel_Request(Packet):
-    name = "L2CAP Move Channel Request"
+    name = "L2CAP_MOVE_CHANNEL_REQ"
     fields_desc = [LEShortField("icid", 0),
                    ByteField("dest_controller_id", 0), ]
 
 
 class L2CAP_Move_Channel_Response(Packet):
-    name = "L2CAP Move Channel Response"
+    name = "L2CAP_MOVE_CHANNEL_RSP"
     fields_desc = [LEShortField("icid", 0),
                    LEShortEnumField("result", 0, {
                        0: "Move success",
@@ -515,14 +515,14 @@ class L2CAP_Move_Channel_Response(Packet):
 
 
 class L2CAP_Move_Channel_Confirmation_Request(Packet):
-    name = "L2CAP Move Channel Confirmation Request"
+    name = "L2CAP_MOVE_CHANNEL_CONFIRMATION_REQ"
     fields_desc = [LEShortField("icid", 0),
                    LEShortEnumField("result", 0, {0: "Move success",
                                                   1: "Move failure"}), ]
 
 
 class L2CAP_Move_Channel_Confirmation_Response(Packet):
-    name = "L2CAP Move Channel Confirmation Response"
+    name = "L2CAP_MOVE_CHANNEL_CONFIRMATION_RSP"
     fields_desc = [LEShortField("icid", 0), ]
 
 
