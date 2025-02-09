@@ -937,6 +937,15 @@ class SM_DHKey_Check(Packet):
     fields_desc = [StrFixedLenField("dhkey_check", b'\x00' * 16, 16), ]
 
 
+class SM_Keypress_Notification(Packet):
+    name = "DHKey Check"
+    fields_desc = [ByteEnumField("type", 0, {0: "Passkey entry started",
+                                             1: "Passkey digit entered",
+                                             2: "Passkey digit erased",
+                                             3: "Passkey cleared",
+                                             4: "Passkey entry completed",})]
+
+
 class EIR_Hdr(Packet):
     name = "EIR Header"
     fields_desc = [
@@ -2912,6 +2921,7 @@ bind_layers(SM_Hdr, SM_Signing_Information, sm_command=0x0a)
 bind_layers(SM_Hdr, SM_Security_Request, sm_command=0x0b)
 bind_layers(SM_Hdr, SM_Public_Key, sm_command=0x0c)
 bind_layers(SM_Hdr, SM_DHKey_Check, sm_command=0x0d)
+bind_layers(SM_Hdr, SM_Keypress_Notification, sm_command=0x0e)
 
 
 ###############
