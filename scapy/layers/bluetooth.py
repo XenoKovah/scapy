@@ -302,32 +302,32 @@ class L2CAP_Hdr(Packet):
 class L2CAP_CmdHdr(Packet):
     name = "L2CAP command header"
     fields_desc = [
-        ByteEnumField("code", 8, {1: "rej",
-                                  2: "conn_req",
-                                  3: "conn_resp",
-                                  4: "conf_req",
-                                  5: "conf_resp",
-                                  6: "disconn_req",
-                                  7: "disconn_resp",
-                                  8: "echo_req",
-                                  9: "echo_resp",
-                                  10: "info_req",
-                                  11: "info_resp",
+        ByteEnumField("code", 8, {1: "L2CAP_COMMAND_REJECT_RSP",
+                                  2: "L2CAP_CONNECTION_REQ",
+                                  3: "L2CAP_CONNECTION_RSP",
+                                  4: "L2CAP_CONFIGURATION_REQ",
+                                  5: "L2CAP_CONFIGURATION_RSP",
+                                  6: "L2CAP_DISCONNECTION_REQ",
+                                  7: "L2CAP_DISCONNECTION_RSP",
+                                  8: "L2CAP_ECHO_REQ",
+                                  9: "L2CAP_ECHO_RSP",
+                                  10: "L2CAP_INFORMATION_REQ",
+                                  11: "L2CAP_INFORMATION_RSP",
                                   12: "create_channel_req",
                                   13: "create_channel_resp",
                                   14: "move_channel_req",
                                   15: "move_channel_resp",
                                   16: "move_channel_confirm_req",
                                   17: "move_channel_confirm_resp",
-                                  18: "conn_param_update_req",
-                                  19: "conn_param_update_resp",
-                                  20: "LE_credit_based_conn_req",
-                                  21: "LE_credit_based_conn_resp",
-                                  22: "flow_control_credit_ind",
-                                  23: "credit_based_conn_req",
-                                  24: "credit_based_conn_resp",
-                                  25: "credit_based_reconf_req",
-                                  26: "credit_based_reconf_resp"}),
+                                  18: "L2CAP_CONNECTION_PARAMETER_UPDATE_REQ",
+                                  19: "L2CAP_CONNECTION_PARAMETER_UPDATE_RSP",
+                                  20: "L2CAP_LE_CREDIT_BASED_CONNECTION_REQ",
+                                  21: "L2CAP_LE_CREDIT_BASED_CONNECTION_RSP",
+                                  22: "L2CAP_FLOW_CONTROL_CREDIT_IND",
+                                  23: "L2CAP_CREDIT_BASED_CONNECTION_REQ",
+                                  24: "L2CAP_CREDIT_BASED_CONNECTION_RSP",
+                                  25: "L2CAP_CREDIT_BASED_RECONFIGURE_REQ",
+                                  26: "L2CAP_CREDIT_BASED_RECONFIGURE_RSP"}),
         ByteField("id", 0),
         LEShortField("len", None)]
 
@@ -349,7 +349,7 @@ class L2CAP_CmdHdr(Packet):
 
 
 class L2CAP_ConnReq(Packet):
-    name = "L2CAP Conn Req"
+    name = "L2CAP_CONNECTION_REQ"
     fields_desc = [LEShortEnumField("psm", 0, {1: "SDP",
                                                3: "RFCOMM",
                                                5: "TCS-BIN",
@@ -371,7 +371,7 @@ class L2CAP_ConnReq(Packet):
 
 
 class L2CAP_ConnResp(Packet):
-    name = "L2CAP Conn Resp"
+    name = "L2CAP_CONNECTION_RSP"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("scid", 0),
                    LEShortEnumField("result", 0, ["success", "pend", "cr_bad_psm", "cr_sec_block", "cr_no_mem", "reserved", "cr_inval_scid", "cr_scid_in_use"]),  # noqa: E501
@@ -384,20 +384,20 @@ class L2CAP_ConnResp(Packet):
 
 
 class L2CAP_CmdRej(Packet):
-    name = "L2CAP Command Rej"
+    name = "L2CAP_COMMAND_REJECT_RSP"
     fields_desc = [LEShortField("reason", 0),
                    ]
 
 
 class L2CAP_ConfReq(Packet):
-    name = "L2CAP Conf Req"
+    name = "L2CAP_CONFIGURATION_REQ"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("flags", 0),
                    ]
 
 
 class L2CAP_ConfResp(Packet):
-    name = "L2CAP Conf Resp"
+    name = "L2CAP_CONFIGURATION_RSP"
     fields_desc = [LEShortField("scid", 0),
                    LEShortField("flags", 0),
                    LEShortEnumField("result", 0, ["success", "unaccept", "reject", "unknown"]),  # noqa: E501
@@ -409,13 +409,13 @@ class L2CAP_ConfResp(Packet):
 
 
 class L2CAP_DisconnReq(Packet):
-    name = "L2CAP Disconn Req"
+    name = "L2CAP_DISCONNECTION_REQ"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("scid", 0), ]
 
 
 class L2CAP_DisconnResp(Packet):
-    name = "L2CAP Disconn Resp"
+    name = "L2CAP_DISCONNECTION_RSP"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("scid", 0), ]
 
@@ -424,26 +424,30 @@ class L2CAP_DisconnResp(Packet):
 
 
 class L2CAP_EchoReq(Packet):
-    name = "L2CAP Echo Req"
+    name = "L2CAP_ECHO_REQ"
     fields_desc = [StrField("data", ""), ]
 
 
 class L2CAP_EchoResp(Packet):
-    name = "L2CAP Echo Resp"
+    name = "L2CAP_ECHO_RSP"
     fields_desc = [StrField("data", ""), ]
 
 
 class L2CAP_InfoReq(Packet):
-    name = "L2CAP Info Req"
-    fields_desc = [LEShortEnumField("type", 0, {1: "CL_MTU", 2: "FEAT_MASK"}),
+    name = "L2CAP_INFORMATION_REQ"
+    fields_desc = [LEShortEnumField("type", 0, {1: "Connectionless MTU",
+                                                2: "Extended features supported",
+                                                3: "Fixed channels supported over BR/EDR"}),
                    StrField("data", "")
                    ]
 
 
 class L2CAP_InfoResp(Packet):
-    name = "L2CAP Info Resp"
-    fields_desc = [LEShortField("type", 0),
-                   LEShortEnumField("result", 0, ["success", "not_supp"]),
+    name = "L2CAP_INFORMATION_RSP"
+    fields_desc = [LEShortEnumField("type", 0, {1: "Connectionless MTU",
+                                                2: "Extended features supported",
+                                                3: "Fixed channels supported over BR/EDR"}),
+                   LEShortEnumField("result", 0, ["success", "not supported"]),
                    StrField("data", ""), ]
 
     def answers(self, other):
@@ -523,7 +527,7 @@ class L2CAP_Move_Channel_Confirmation_Response(Packet):
 
 
 class L2CAP_Connection_Parameter_Update_Request(Packet):
-    name = "L2CAP Connection Parameter Update Request"
+    name = "L2CAP_CONNECTION_PARAMETER_UPDATE_REQ"
     fields_desc = [LEShortField("min_interval", 0),
                    LEShortField("max_interval", 0),
                    LEShortField("slave_latency", 0),
@@ -531,12 +535,12 @@ class L2CAP_Connection_Parameter_Update_Request(Packet):
 
 
 class L2CAP_Connection_Parameter_Update_Response(Packet):
-    name = "L2CAP Connection Parameter Update Response"
+    name = "L2CAP_CONNECTION_PARAMETER_UPDATE_RSP"
     fields_desc = [LEShortField("move_result", 0), ]
 
 
 class L2CAP_LE_Credit_Based_Connection_Request(Packet):
-    name = "L2CAP LE Credit Based Connection Request"
+    name = "L2CAP_LE_CREDIT_BASED_CONNECTION_REQ"
     fields_desc = [LEShortField("spsm", 0),
                    LEShortField("scid", 0),
                    LEShortField("mtu", 0),
@@ -545,7 +549,7 @@ class L2CAP_LE_Credit_Based_Connection_Request(Packet):
 
 
 class L2CAP_LE_Credit_Based_Connection_Response(Packet):
-    name = "L2CAP LE Credit Based Connection Response"
+    name = "L2CAP_LE_CREDIT_BASED_CONNECTION_RSP"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("mtu", 0),
                    LEShortField("mps", 0),
@@ -564,13 +568,13 @@ class L2CAP_LE_Credit_Based_Connection_Response(Packet):
 
 
 class L2CAP_Flow_Control_Credit_Ind(Packet):
-    name = "L2CAP Flow Control Credit Ind"
+    name = "L2CAP_FLOW_CONTROL_CREDIT_IND"
     fields_desc = [LEShortField("cid", 0),
                    LEShortField("credits", 0), ]
 
 
 class L2CAP_Credit_Based_Connection_Request(Packet):
-    name = "L2CAP Credit Based Connection Request"
+    name = "L2CAP_CREDIT_BASED_CONNECTION_REQ"
     fields_desc = [LEShortField("spsm", 0),
                    LEShortField("mtu", 0),
                    LEShortField("mps", 0),
@@ -579,7 +583,7 @@ class L2CAP_Credit_Based_Connection_Request(Packet):
 
 
 class L2CAP_Credit_Based_Connection_Response(Packet):
-    name = "L2CAP Credit Based Connection Response"
+    name = "L2CAP_CREDIT_BASED_CONNECTION_RSP"
     fields_desc = [LEShortField("mtu", 0),
                    LEShortField("mps", 0),
                    LEShortField("initial_credits", 0),
@@ -599,14 +603,14 @@ class L2CAP_Credit_Based_Connection_Response(Packet):
 
 
 class L2CAP_Credit_Based_Reconfigure_Request(Packet):
-    name = "L2CAP Credit Based Reconfigure Request"
+    name = "L2CAP_CREDIT_BASED_RECONFIGURE_REQ"
     fields_desc = [LEShortField("mtu", 0),
                    LEShortField("mps", 0),
                    LEShortField("dcid", 0), ]
 
 
 class L2CAP_Credit_Based_Reconfigure_Response(Packet):
-    name = "L2CAP Credit Based Reconfigure Response"
+    name = "L2CAP_CREDIT_BASED_RECONFIGURE_RSP"
     fields_desc = [LEShortEnumField("result", 0, {
                    0: "Reconfig successful",
                    1: "Reconfig failed - MTU size reduction not allowed",
