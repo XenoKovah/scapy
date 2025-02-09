@@ -435,23 +435,22 @@ class L2CAP_EchoResp(Packet):
 
 class L2CAP_InfoReq(Packet):
     name = "L2CAP_INFORMATION_REQ"
-    fields_desc = [LEShortEnumField("type", 0, {1: "Connectionless MTU",
-                                                2: "Extended features supported",
-                                                3: "Fixed channels supported over BR/EDR"}),
-                   StrField("data", "")
+    fields_desc = [LEShortEnumField("info_type", 0, {1: "Connectionless MTU",
+                                                     2: "Extended features supported",
+                                                     3: "Fixed channels supported over BR/EDR"}),
                    ]
 
 
 class L2CAP_InfoResp(Packet):
     name = "L2CAP_INFORMATION_RSP"
-    fields_desc = [LEShortEnumField("type", 0, {1: "Connectionless MTU",
-                                                2: "Extended features supported",
-                                                3: "Fixed channels supported over BR/EDR"}),
+    fields_desc = [LEShortEnumField("info_type", 0, {1: "Connectionless MTU",
+                                                     2: "Extended features supported",
+                                                     3: "Fixed channels supported over BR/EDR"}),
                    LEShortEnumField("result", 0, ["success", "not supported"]),
-                   StrField("data", ""), ]
+                   StrField("info", ""), ]
 
     def answers(self, other):
-        return self.type == other.type
+        return self.info_type == other.info_type
 
 
 class L2CAP_Create_Channel_Request(Packet):
