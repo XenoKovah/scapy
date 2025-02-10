@@ -365,7 +365,8 @@ class L2CAP_ConnReq(Packet):
                                                31: "ATT",
                                                33: "3DSP",
                                                35: "IPSP",
-                                               37: "OTS"}),
+                                               37: "OTS",
+                                               39: "EATT"}),
                    LEShortField("scid", 0),
                    ]
 
