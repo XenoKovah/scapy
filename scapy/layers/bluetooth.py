@@ -394,6 +394,7 @@ class L2CAP_ConfReq(Packet):
     name = "L2CAP_CONFIGURATION_REQ"
     fields_desc = [LEShortField("dcid", 0),
                    LEShortField("flags", 0),
+                   StrField("config_options", ""),
                    ]
 
 
@@ -402,6 +403,7 @@ class L2CAP_ConfResp(Packet):
     fields_desc = [LEShortField("scid", 0),
                    LEShortField("flags", 0),
                    LEShortEnumField("result", 0, ["success", "unaccept", "reject", "unknown"]),  # noqa: E501
+                   StrField("config_options", ""),
                    ]
 
     def answers(self, other):
@@ -617,6 +619,13 @@ class L2CAP_Credit_Based_Reconfigure_Response(Packet):
                    2: "Reconfig failed - MPS size reduction not allowed",
                    3: "Reconfig failed - one or more dcids invalid",
                    4: "Reconfig failed - unacceptable parameters"}), ]
+
+
+class SDP_Hdr(Packet):
+    name = "SDP header"
+    fields_desc = [ByteField("pdu_id", None),
+                   ShortField("transaction_id", None),
+                   ShortField("param_len", None), ]  # noqa: E501
 
 
 class ATT_Hdr(Packet):
@@ -2879,6 +2888,7 @@ bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Connection_Request, code=23)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Connection_Response, code=24)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Reconfigure_Request, code=25)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Reconfigure_Response, code=26)
+bind_layers(L2CAP_Hdr, SDP_Hdr)
 bind_layers(L2CAP_Hdr, ATT_Hdr, cid=4)
 bind_layers(ATT_Hdr, ATT_Error_Response, opcode=0x1)
 bind_layers(ATT_Hdr, ATT_Exchange_MTU_Request, opcode=0x2)
