@@ -532,13 +532,13 @@ class L2CAP_Connection_Parameter_Update_Request(Packet):
     name = "L2CAP_CONNECTION_PARAMETER_UPDATE_REQ"
     fields_desc = [LEShortField("min_interval", 0),
                    LEShortField("max_interval", 0),
-                   LEShortField("slave_latency", 0),
-                   LEShortField("timeout_mult", 0), ]
+                   LEShortField("latency", 0),
+                   LEShortField("timeout", 0), ]
 
 
 class L2CAP_Connection_Parameter_Update_Response(Packet):
     name = "L2CAP_CONNECTION_PARAMETER_UPDATE_RSP"
-    fields_desc = [LEShortField("move_result", 0), ]
+    fields_desc = [LEShortField("result", 0), ]
 
 
 class L2CAP_LE_Credit_Based_Connection_Request(Packet):
