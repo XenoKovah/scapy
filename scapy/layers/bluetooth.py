@@ -2888,7 +2888,6 @@ bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Connection_Request, code=23)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Connection_Response, code=24)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Reconfigure_Request, code=25)
 bind_layers(L2CAP_CmdHdr, L2CAP_Credit_Based_Reconfigure_Response, code=26)
-bind_layers(L2CAP_Hdr, SDP_Hdr)
 bind_layers(L2CAP_Hdr, ATT_Hdr, cid=4)
 bind_layers(ATT_Hdr, ATT_Error_Response, opcode=0x1)
 bind_layers(ATT_Hdr, ATT_Exchange_MTU_Request, opcode=0x2)
@@ -2932,6 +2931,7 @@ bind_layers(SM_Hdr, SM_Security_Request, sm_command=0x0b)
 bind_layers(SM_Hdr, SM_Public_Key, sm_command=0x0c)
 bind_layers(SM_Hdr, SM_DHKey_Check, sm_command=0x0d)
 bind_layers(SM_Hdr, SM_Keypress_Notification, sm_command=0x0e)
+bind_layers(L2CAP_Hdr, SDP_Hdr)
 
 
 ###############
