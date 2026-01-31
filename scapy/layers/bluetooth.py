@@ -2505,6 +2505,15 @@ class HCI_Event_LE_Meta(Packet):
         return self.payload.answers(other)
 
 
+class HCI_Event_Vendor(Packet):
+    """
+    5.4.4 HCI Event packet
+    "The event code 0xFF is reserved for vendor-specific debugging events."
+    """
+    name = "HCI_Vendor_Specific"
+    fields_desc = [StrLenField("data", b"", length_from=lambda pkt: pkt.len)]
+
+
 class HCI_Cmd_Complete_Read_Local_Name(Packet):
     """
     7.3.12 Read Local Name command complete
@@ -2811,6 +2820,7 @@ bind_layers(HCI_Event_Hdr, HCI_Event_Extended_Inquiry_Result, code=0x2f)
 bind_layers(HCI_Event_Hdr, HCI_Event_IO_Capability_Response, code=0x32)
 bind_layers(HCI_Event_Hdr, HCI_Event_Remote_Host_Supported_Features_Notification, code=0x3d)
 bind_layers(HCI_Event_Hdr, HCI_Event_LE_Meta, code=0x3e)
+bind_layers(HCI_Event_Hdr, HCI_Event_Vendor, code=0xff)
 
 bind_layers(HCI_Event_Command_Complete, HCI_Cmd_Complete_Read_Local_Name, opcode=0x0c14)  # noqa: E501
 bind_layers(HCI_Event_Command_Complete, HCI_Cmd_Complete_Read_Local_Version_Information, opcode=0x1001)  # noqa: E501
